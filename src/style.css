@@ -1,17 +1,95 @@
-main {
+body {
     padding: 0;
     margin: 0;
 }
-table {
-    padding: 0;
-    margin: 0;
-    border-collapse: collapse;
+main {
+    width: 700px;
+    min-width: 680px;
+    margin: 0 auto;
     border: 1px solid red;
 }
-table thead {
-    background-color: lightgray;
-    padding-left: 4px;
+main ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
-table th {
-    padding: 8px 8px;
+main ul li {
+    //white-space: nowrap;
+    margin: 0 4px;
+}
+
+/* image */
+main ul li:nth-child(1) {
+    width: 8%;
+    min-width: 50px;
+}
+/* Name */
+main ul li:nth-child(2) {
+    width: 15%;
+}
+/* Created */
+main ul li:nth-child(3) {
+    width: 16%;
+}
+/* Category */
+main ul li:nth-child(4) {
+    width: 15%;
+}
+/* Content */
+main ul li:nth-child(5) {
+    width: 18%;
+}
+/* Dates */
+main ul li:nth-child(6) {
+    width: 11%;
+    white-space: normal;
+}
+/* edit buttons */
+main ul li:nth-child(7) {
+    width: 15%;
+    min-width: 90px;
+}
+
+.headContent,
+.mainContent > div {
+    padding: 8px 10px;
+}
+.headContent {
+    background-color: gray;
+    color: whitesmoke;
+}
+.headContent ul li {
+    display: inline-block;
+    font-weight: 700;
+}
+.mainContent > div {
+    margin-top: 10px;
+    background-color: lightgray;
+}
+
+.imageCategory {
+    width: 40px;
+    line-height: 40px;
+    background-color: orangered;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 21px;
+    color: white;
+    border-radius: 70px;
+    text-align: center;
+}
+
+.editButtons ul {
+    text-align: right;
+    display: block;
+}
+.mainContent .editButtons li {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-color: red;
+    min-width: auto;
+    margin: 0;
 }
