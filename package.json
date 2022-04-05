@@ -1,0 +1,20 @@
+{
+  "name": "radency-hometask-1",
+  "version": "1.0.0",
+  "description": "Radency.com JavaScript hometask 1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Yurii Kostiuchenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merowing/Radency-hometask-1/issues"
+  },
+  "homepage": "https://github.com/merowing/Radency-hometask-1#readme"
+}
