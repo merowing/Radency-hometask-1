@@ -1,46 +1,43 @@
 import maxLetters from './lib/maxLetters.js';
 import { getData, setData } from './lib/data.js';
+import getStatistics from './lib/getStatistics.js';
+import getCategory from './lib/getCategory.js';
+import contentRow from './lib/contentRow.js';
+import archiveRow from './lib/archiveRow.js';
 
 let mainBlock = document.querySelector('.mainContent');
-
-let listOfCategories = ['Idea', 'Random Thought', 'Task'];
+let archiveBlock = document.querySelector('.mainArchive');
 
 // fill content
 mainBlock.innerHTML = '';
 let data = getData();
 let fragment = document.createDocumentFragment();
+let fragmentArchive = document.createDocumentFragment();
 for(let i = 0; i < data.length; i++) {
+    if(data[i].archived) continue;
+
     let elemDiv = document.createElement('div');
-    elemDiv.innerHTML = `
-                    <ul>
-                        <li>
-                            <div class="imageCategory">A</div>
-                        </li>
-                        <li><span>${data[i].name}</span></li>
-                        <li><span>${data[i].created}</span></li>
-                        <li><span>${listOfCategories[data[i].category]}</span></li>
-                        <li><span>${data[i].content}</span></li>
-                        <li><span>${data[i].dates}</span></li>
-                        <li>
-                            <div class="editButtons">
-                                <ul>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                `;
+    elemDiv.innerHTML = contentRow(data[i]);
         fragment.appendChild(elemDiv);
 }
 mainBlock.appendChild(fragment);
+
+archiveBlock.innerHTML = '';
+let statistics = getStatistics();
+
+for(let i = 0; i < 3; i++) {
+    if(!statistics[i]) continue;
+    let divArchive = document.createElement('div');
+    divArchive.innerHTML = archiveRow(statistics[i]);
+    fragmentArchive.appendChild(divArchive);
+}
+archiveBlock.appendChild(fragmentArchive);
 
 
 let mainContent = mainBlock.querySelectorAll(':scope > div');
 let firstContentItems = mainContent[0].querySelectorAll('span');
 
-let ids = [0,2,3];
+let ids = [0,2,3]; // in which columns text should be shorter
 let letterLen = maxLetters(ids.map(el => firstContentItems[el]));
 
 for(let n = 0; n < mainContent.length; n++) {
@@ -82,15 +79,6 @@ function hideModalWindow() {
     modalWindow.classList.add('hidden');
 }
 
-// edit buttons
-
-// let editButtons = document.querySelectorAll('.editButtons li');
-
-// let edit = editButtons[0];
-// edit.addEventListener('click', () => {
-//     alert(1);
-// });
-
 function tagMainContent(elem) {
     if(elem.parentElement.getAttribute('class') !== 'mainContent') {
         return tagMainContent(elem.parentElement);
@@ -117,66 +105,12 @@ mainBlock.addEventListener('click', e => {
 
     // archive
     if(e.target.tagName === 'LI' && editIndex === 1) {
-        alert(id);
+        setArchive(id);
     }
 
     // delete
     if(e.target.tagName === 'LI' && editIndex === 2) {
-        mainContent[id].parentElement.removeChild(mainContent[id]);
-        mainContent = document.querySelectorAll('.mainContent > div');
+        deleteRow
     }
 
 });
-
-
-// function editButtonClick(id) {
-//     let editButtons = mainContent[id].querySelectorAll('.editButtons li');
-//     let edit = editButtons[0];
-//     edit.addEventListener('click', e => {
-//         e.preventDefault();
-//         alert(id);
-//         e.stopPropagation();
-//     });
-// }
-
-
-//let maxLetters = [];
-/*
-//let itemHeight = mainContentItems[ids[0]].offsetHeight;
-for(let i = 0; i < ids.length; i++) { 
-    let itemText = mainContentItems[ids[i]].innerText;
-    // let getHeightLine = (item) => {
-    //     item.innerText = 'a';
-    //     let h = item.offsetHeight;
-    //     item.innerText = '';
-    //     return h;
-    // }
-    //let heightLine = getHeightLine(mainContentItems[ids[0]]);
-
-    mainContentItems[ids[i]].style.whiteSpace = 'nowrap';
-    let itemWidth = mainContentItems[ids[i]].offsetWidth;
-    mainContentItems[ids[i]].removeAttribute('style');
-
-    let lettersLen = itemText.length;
-    let textBlockWidth = mainContentItems[ids[i]].parentElement.offsetWidth;
-    let maxLetters = Math.floor(textBlockWidth / Math.ceil(itemWidth/lettersLen));
-
-    maxLettersArr[maxLettersArr.length] = maxLetters;
-*/
-    /*
-    if(textBlockWidth < itemWidth) {
-        let str = '';
-        for(let i = 0; i < maxLetters - 4; i++) {
-            str += itemText[i];
-        }
-        mainContentItems[ids[i]].innerText = str + '...';
-    }
-    */
-//}
-//alert(textBlockWidth / ~~(itemWidth/lettersLen));
-
-// let i = 0;
-// while(mainContentItems[ids[0]].offsetHeight <= heightLine && i < 10) {
-//     mainContentItems[ids[0]].innerText += (itemText[i] === ' ') ? " " : itemText[i];
-//     i++;
-// }

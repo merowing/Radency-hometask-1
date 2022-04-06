@@ -55,18 +55,23 @@ main ul li:nth-child(7) {
 }
 
 .headContent,
-.mainContent > div {
+.mainContent > div,
+.headArchive,
+.mainArchive > div {
     padding: 8px 10px;
 }
-.headContent {
+.headContent,
+.headArchive {
     background-color: gray;
     color: whitesmoke;
 }
-.headContent ul li {
+.headContent ul li,
+.headArchive ul li {
     display: inline-block;
     font-weight: 700;
 }
-.mainContent > div {
+.mainContent > div,
+.mainArchive > div {
     margin-top: 10px;
     background-color: lightgray;
 }
@@ -167,4 +172,17 @@ main ul li:nth-child(7) {
     position: absolute;
     top: 16px;
     right: 16px;
+}
+
+/* archive content */
+.headArchive {
+    margin-top: 40px;
+}
+main div.headArchive ul li,
+main div.mainArchive ul li {
+    width: 31%;
+}
+.headArchive ul li:nth-child(1),
+.mainArchive ul li:nth-child(1) {
+    width: 7%;
 }
