@@ -1,6 +1,7 @@
 import getCategory from "./getCategory.js";
 
-export default function({name, created, category, content, dates}) {
+export default function({name, created, category, content, date}) {
+    date = date.join(', ');
 return `
         <ul>
             <li>
@@ -10,7 +11,7 @@ return `
             <li><span>${created}</span></li>
             <li><span>${getCategory(category)}</span></li>
             <li><span>${content}</span></li>
-            <li><span>${dates}</span></li>
+            <li><span>${date}</span></li>
             <li>
                 <div class="editButtons">
                     <ul>

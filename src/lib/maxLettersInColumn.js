@@ -1,4 +1,4 @@
-function maxLetters(items) {
+function maxLettersInColumn(items) {
     let arr = [];
     for(let i = 0; i < items.length; i++) { 
         let itemText = items[i].innerText;
@@ -18,4 +18,4 @@ function maxLetters(items) {
     return arr;
 }
 
-export default maxLetters;
+export default maxLettersInColumn;

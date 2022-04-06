@@ -94,20 +94,21 @@
         <div class="addNoteModal hidden">
             <div>
                 <label for="noteName">Name</label>
-                <input id="noteName" type="text" />
+                <input id="noteName" name="name" type="text" />
             </div>
             <div>
                 <label>Choose category</label>
-                <select id="noteCategory">
-                    <option>Any</option>
-                    <option>Idea</option>
-                    <option>Random Thought</option>
-                    <option>Task</option>
+                <select id="noteCategory" name="category">
                 </select>
             </div>
             <div>
+                <label>Choose date</label>
+                <input type="date" id="noteDateFrom" name="dateFrom" />
+                <input type="date" id="noteDateTo" name="dateTo" />
+            </div>
+            <div>
                 <label for="noteDescription">Description</label>
-                <textarea id="noteDescirption"></textarea>
+                <textarea id="noteDescription" name="description"></textarea>
             </div>
             <div id="noteButton">
                 <button>Add Note</button>

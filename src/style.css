@@ -88,6 +88,9 @@ main ul li:nth-child(7) {
     text-align: center;
 }
 
+.editButtons {
+    line-height: 0;
+}
 .editButtons ul {
     text-align: right;
     display: block;
@@ -137,7 +140,7 @@ main ul li:nth-child(7) {
     display: none;
 }
 .addNoteModal > div {
-    padding: 4px 0;
+    padding: 8px 0;
 }
 .addNoteModal label {
     display: block;
@@ -170,8 +173,14 @@ main ul li:nth-child(7) {
 }
 .addNoteModal .noteClose {
     position: absolute;
-    top: 16px;
+    top: 8px;
     right: 16px;
+}
+#noteName {
+    width: 100%;
+}
+#noteDateFrom {
+    margin-right: 20px;
 }
 
 /* archive content */
