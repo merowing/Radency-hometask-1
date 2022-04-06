@@ -3,7 +3,7 @@ body {
     margin: 0;
 }
 main {
-    width: 700px;
+    width: 800px;
     min-width: 680px;
     margin: 0 auto;
     border: 1px solid red;
@@ -19,10 +19,12 @@ main ul li {
     //white-space: nowrap;
     margin: 0 4px;
 }
+main ul li span {
+    font-size: 16px;
+}
 
 /* image */
 main ul li:nth-child(1) {
-    width: 8%;
     min-width: 50px;
 }
 /* Name */
@@ -31,19 +33,19 @@ main ul li:nth-child(2) {
 }
 /* Created */
 main ul li:nth-child(3) {
-    width: 16%;
+    width: 15%;
 }
 /* Category */
 main ul li:nth-child(4) {
-    width: 15%;
+    width: 18%;
 }
 /* Content */
 main ul li:nth-child(5) {
-    width: 18%;
+    width: 20%;
 }
 /* Dates */
 main ul li:nth-child(6) {
-    width: 11%;
+    width: 12%;
     white-space: normal;
 }
 /* edit buttons */
@@ -92,4 +94,77 @@ main ul li:nth-child(7) {
     background-color: red;
     min-width: auto;
     margin: 0;
+}
+
+.addNote {
+    text-align: right;
+    padding: 12px 0;
+}
+
+.background {
+    background-color: #000;
+    opacity: 0.7;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.background.hidden {
+    display: none;
+}
+
+/* modal window */
+.addNoteModal {
+    position: absolute;
+    z-index: 2;
+    width: 460px;
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 30px auto;
+    padding: 16px;
+}
+.addNoteModal.hidden {
+    display: none;
+}
+.addNoteModal > div {
+    padding: 4px 0;
+}
+.addNoteModal label {
+    display: block;
+}
+.addNoteModal select,
+.addNoteModal input {
+    height: 24px;
+    box-sizing: border-box;
+    outline: none;
+}
+.addNoteModal textarea {
+    width: 100%;
+    resize: none;
+    height: 80px;
+    box-sizing: border-box;
+    outline: none;
+}
+.addNoteModal #noteButton {
+    text-align: center;
+}
+.addNoteModal #noteButton button {
+    border: 0;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}
+.addNoteModal #noteButton button:hover {
+    background-color: darkgreen;
+}
+.addNoteModal .noteClose {
+    position: absolute;
+    top: 16px;
+    right: 16px;
 }

@@ -25,10 +25,31 @@
                         <li>
                             <div class="imageCategory">A</div>
                         </li>
-                        <li><span>Name of category</span></li>
+                        <li><span>Name of category test</span></li>
                         <li><span>April 05, 2021</span></li>
-                        <li><span>Random Thought</span></li>
-                        <li><span>The evolution</span></li>
+                        <li><span>Random Thought test</span></li>
+                        <li><span>The evolution test string</span></li>
+                        <li><span>3/5/2021, 5/5/2021</span></li>
+                        <li>
+                            <div class="editButtons">
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <div class="imageCategory">A</div>
+                        </li>
+                        <li><span>Name of category test</span></li>
+                        <li><span>April 05, 2021</span></li>
+                        <li><span>Random Thought test</span></li>
+                        <li><span>The evolution test string</span></li>
                         <li><span>3/5/2021, 5/5/2021</span></li>
                         <li>
                             <div class="editButtons">
@@ -43,10 +64,33 @@
                 </div>
             </div>
         </div>
+        <div class="addNote"><button class="createNote">Create Note</button></div>
         <div class="archiveContent"></div>
-        <div class="addMessage"></div>
-        <div class="background"></div>
+        <div class="addNoteModal hidden">
+            <div>
+                <label for="noteName">Name</label>
+                <input id="noteName" type="text" />
+            </div>
+            <div>
+                <label>Choose category</label>
+                <select id="noteCategory">
+                    <option>Any</option>
+                    <option>Idea</option>
+                    <option>Random Thought</option>
+                    <option>Task</option>
+                </select>
+            </div>
+            <div>
+                <label for="noteDescription">Description</label>
+                <textarea id="noteDescirption"></textarea>
+            </div>
+            <div id="noteButton">
+                <button>Add Note</button>
+            </div>
+            <button class="noteClose">Close</button>
+        </div>
+        <div class="background hidden"></div>
     </main>
-    <script type="text/javascript" src="./index.js"></script>
+    <script type="module" src="./index.js"></script>
 </body>
 </html>
