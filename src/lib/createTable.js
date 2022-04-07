@@ -35,13 +35,13 @@ function addNewRow(data) {
     main.appendChild(elemDiv);
 }
 
-function addRows(data) {
+function createTable(data) {
     let mainBlock = document.querySelector('.mainContent');
 
     mainBlock.innerHTML = '';
-    //let data = getData();
     
     let fragment = document.createDocumentFragment();
+    
     for(let i = 0; i < data.length; i++) {
         if(data[i].archived) continue;
     
@@ -51,7 +51,11 @@ function addRows(data) {
             fragment.appendChild(elemDiv);
     }
 
+    if(data.length === 0) {
+        emptyTableMessage();
+    }
+
     mainBlock.appendChild(fragment);
 }
 
-export { addNewRow, addRows };
+export { addNewRow, createTable };

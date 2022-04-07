@@ -20,7 +20,7 @@ export default function() {
     let archiveBlock = document.querySelector('.mainArchive');
     archiveBlock.innerHTML = '';
     let statistics = getStatistics();
-console.log(statistics);
+    
     let fragmentArchive = document.createDocumentFragment();
     for(let i = 0; i < 3; i++) {
         if(!statistics[i]) continue;

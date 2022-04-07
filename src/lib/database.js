@@ -28,12 +28,12 @@ let db = [
     },
 ];
 
-function getData(id = null) {
+function getDatabase(id = null) {
     if(id === -1) return db[db.length-1];
     if(id === null) return db;
     return db[getIndex(id)];
 }
-function setData({name, created, category, content, date}, id = null, edit = false) {
+function setDatabaseItem({name, created, category, content, date}, id = null, edit = false) {
     id = getIndex(id);
     if(edit) {
         db[id] = {
@@ -43,7 +43,6 @@ function setData({name, created, category, content, date}, id = null, edit = fal
             content: content,
             date: date,
         }
-        //console.log(db[id]);
     }else {
         db.push({
             id: db[db.length-1].id + 1,
@@ -56,13 +55,11 @@ function setData({name, created, category, content, date}, id = null, edit = fal
         });
     }
 }
-function removeData(id) {
-    console.log('db:'+db.length);
+function removeDatabaseItem(id) {
     db.splice(getIndex(id), 1);
-    console.log('db:'+db.length);
 }
 
-function setArchive(id) {
+function setArchiveItem(id) {
     db[getIndex(id)].archived = true;
 }
 
@@ -78,4 +75,4 @@ function getIndex(id) {
 }
 
 
-export { getData, setData, setArchive, removeData };
+export { getDatabase, setDatabaseItem, setArchiveItem, removeDatabaseItem };

@@ -1,7 +1,6 @@
 import getCategory from "./getCategory.js";
 
 export default function(id, {name, category, date, content}) {
-    console.log(id);
     let elems = document.querySelectorAll('.mainContent > div')[id].querySelectorAll('li');
 
     elems[1].querySelector('span').innerText = name;
