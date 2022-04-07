@@ -92,6 +92,7 @@ mainBlock.addEventListener('click', e => {
         noteDateTo.value = '';
         if(date.length > 0) {
             let dateArr = getDate(date);
+            alert(dateArr);
             noteDateFrom.value = dateArr[0];
             if(dateArr.length === 2) noteDateTo.value = dateArr[1];
         }

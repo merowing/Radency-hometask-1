@@ -14,13 +14,15 @@ function getDate(arr = null) {
 
         return `${month} ${day}, ${year}`;
     }else {
-        if(arr[0].indexOf('-') >= 0) {
+        if(arr.join().indexOf('-') >= 0) {
             return arr.map(el => {
+                if(!el) return '';
                 let [year, month, day] = el.split('-');
                 return `${+day}/${+month}/${year}`;
             });
         }else {
             return arr.map(el => {
+                if(!el) return '';
                 let [day, month, year] = el.split('/');
                 if(day < 10) day = '0' + day;
                 if(month < 10) month = '0' + month;

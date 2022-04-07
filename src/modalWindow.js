@@ -42,9 +42,10 @@ modalNoteButton.addEventListener('click', () => {
     let [name, category, dateFrom, dateTo, description] = [...elems].map(el => el.value);
 
     let arrDate = [dateFrom, dateTo];
-    arrDate = arrDate.filter(a => a);
+    if(arrDate.every(a => !a)) arrDate = [];
+    //arrDate = arrDate.filter(a => a);
     let date = arrDate.length ? getDate(arrDate) : [];
-
+//alert(date);
     category = +category;
     if(modalNoteButton.getAttribute('edit')) {
         setDatabaseItem({name, category, content:description, date}, databaseRowId, true); // data, id, edit = true

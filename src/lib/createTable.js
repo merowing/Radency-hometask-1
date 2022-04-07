@@ -1,7 +1,8 @@
 import getCategory from "./getCategory.js";
+import dateToString from "./dateToString.js";
 
 function htmlCode({ name, created, category, content, date}) {
-    date = date.join(', ');
+    date = dateToString(date);
     return `
             <ul>
                 <li>

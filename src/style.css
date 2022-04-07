@@ -181,6 +181,12 @@ main ul li:nth-child(7) {
 #noteDateFrom {
     margin-right: 20px;
 }
+.noteDate span {
+    display: block;
+}
+.noteDate label {
+    display: inline-block;
+}
 
 /* archive content */
 .headArchive {
