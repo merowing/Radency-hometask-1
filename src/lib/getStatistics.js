@@ -1,13 +1,13 @@
 import { getData } from './data.js';
-import getCategory from './getCategory.js';
 
-let statistics = [];
+let statistics = {};
 let active = 0;
 let archived = 0;
 
 function setStatistics() {
     let data = getData();
     statistics = {};
+    
     for(let i = 0; i < data.length; i++) {
         let categoryId = data[i].category;
         active = 1;

@@ -2,8 +2,8 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
 function getDate(arr = null) {
-    if(!arr.length) return [];
-    if(!arr) {
+    if(arr === []) return [];
+    if(arr === null) {
         let date = new Date();
 
         let day = date.getDate();

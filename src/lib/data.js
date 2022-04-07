@@ -29,10 +29,12 @@ let db = [
 ];
 
 function getData(id = null) {
+    if(id === -1) return db[db.length-1];
     if(id === null) return db;
     return db[getIndex(id)];
 }
-function setData([name, category, content, date], id = null, edit = false) {
+function setData({name, created, category, content, date}, id = null, edit = false) {
+    id = getIndex(id);
     if(edit) {
         db[id] = {
             ...db[id],
@@ -41,8 +43,10 @@ function setData([name, category, content, date], id = null, edit = false) {
             content: content,
             date: date,
         }
+        //console.log(db[id]);
     }else {
         db.push({
+            id: db[db.length-1].id + 1,
             name,
             created,
             category,
@@ -53,8 +57,9 @@ function setData([name, category, content, date], id = null, edit = false) {
     }
 }
 function removeData(id) {
+    console.log('db:'+db.length);
     db.splice(getIndex(id), 1);
-    console.log(db);
+    console.log('db:'+db.length);
 }
 
 function setArchive(id) {
@@ -71,5 +76,6 @@ function getIndex(id) {
     }
     return index;
 }
+
 
 export { getData, setData, setArchive, removeData };
