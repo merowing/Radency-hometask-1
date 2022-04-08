@@ -127,9 +127,34 @@ main ul li:nth-child(7) {
 .addNote {
     text-align: right;
     padding: 12px 0;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
 }
 .addNote button {
     margin-left: 10px;
+}
+.addNote .pagination {
+    flex-grow: 1;
+    text-align: left;
+}
+.addNote .pagination.hidden {
+    visibility: hidden;
+}
+.addNote .pagination ul li {
+    padding: 4px 8px;
+    margin: 0 8px 0 0;
+    min-width: auto;
+    width: auto;
+    font: normal 14px Arial;
+    color: white;
+    background-color: #8e8e8e;
+    cursor: pointer;
+    user-select: none;
+}
+.addNote .pagination ul li.active,
+.addNote .pagination ul li:hover {
+    background-color: orangered;
 }
 .showArchivedNotes {
     display: none;
