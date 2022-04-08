@@ -11,6 +11,7 @@
 <br>
 
 ## How to run:
-1. git pull [url] main
-2. npm start
-3. open browser with url: *localhost:3000*
+1. git init
+2. git pull [url]
+3. npm start
+4. open page in browser: *localhost:3000*
