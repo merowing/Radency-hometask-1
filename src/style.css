@@ -6,7 +6,6 @@ main {
     width: 800px;
     min-width: 680px;
     margin: 0 auto;
-    //border: 1px solid red;
 }
 main ul {
     list-style: none;
@@ -79,6 +78,23 @@ main ul li:nth-child(7) {
     background-color: #bcbcbc;
 }
 
+.editButtons li:hover {
+    outline: 1px solid orangered;
+}
+.editIcon,
+.archiveIcon,
+.deleteIcon {
+    background: url('./images/edit-icons.png');
+    background-size: cover;
+    cursor: pointer;
+}
+.archiveIcon {
+    background-position: -27px 0;
+}
+.deleteIcon {
+    background-position: -56px 0;
+}
+
 .imageCategory {
     width: 40px;
     line-height: 40px;
@@ -107,8 +123,6 @@ main ul li:nth-child(7) {
     margin: 0;
 }
 .mainContent div.archived {
-    //box-sizing: border-box;
-    //outline: 1px solid red;
     background-color: lightcoral;
 }
 .checkboxArchived input {
