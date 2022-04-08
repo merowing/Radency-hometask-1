@@ -6,7 +6,7 @@ main {
     width: 800px;
     min-width: 680px;
     margin: 0 auto;
-    border: 1px solid red;
+    //border: 1px solid red;
 }
 main ul {
     list-style: none;
@@ -71,8 +71,12 @@ main ul li:nth-child(7) {
 }
 .mainContent > div,
 .mainArchive > div {
-    margin-top: 10px;
+    margin-top: 4px;
     background-color: lightgray;
+}
+.mainContent > div:hover,
+.mainArchive > div:hover {
+    background-color: #bcbcbc;
 }
 
 .imageCategory {
@@ -102,10 +106,36 @@ main ul li:nth-child(7) {
     min-width: auto;
     margin: 0;
 }
+.mainContent div.archived {
+    //box-sizing: border-box;
+    //outline: 1px solid red;
+    background-color: lightcoral;
+}
+.checkboxArchived input {
+    vertical-align: middle;
+    margin-top: 0;
+}
+.checkboxArchived {
+    display: none;
+    color: red;
+    font-weight: 700;
+}
+.checkboxArchived.show {
+    display: inline;
+}
 
 .addNote {
     text-align: right;
     padding: 12px 0;
+}
+.addNote button {
+    margin-left: 10px;
+}
+.showArchivedNotes {
+    display: none;
+}
+.showArchivedNotes.show {
+    display: inline-block;
 }
 
 .background {
@@ -189,9 +219,6 @@ main ul li:nth-child(7) {
 }
 
 /* archive content */
-.headArchive {
-    margin-top: 40px;
-}
 main div.headArchive ul li,
 main div.mainArchive ul li {
     width: 31%;

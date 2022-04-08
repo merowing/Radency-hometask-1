@@ -35,11 +35,18 @@ function hideModalWindow() {
     modalWindow.classList.add('hidden');
 }
 
+let checkboxArchived = document.querySelector('.checkboxArchived label');
+checkboxArchived.addEventListener('click', function() {
+    let input = this.querySelector('input');
+    input.value = input.checked ? 1 : 0;
+    return false;
+});
+
 modalNoteButton.addEventListener('click', () => {
     let {databaseRowId, tableId} = getIds();
 
-    let elems = modalWindow.querySelectorAll('div > [name]');
-    let [name, category, dateFrom, dateTo, description] = [...elems].map(el => el.value);
+    let elems = modalWindow.querySelectorAll('div [name]');
+    let [name, category, dateFrom, dateTo, description, archived] = [...elems].map(el => el.value);
 
     let arrDate = [dateFrom, dateTo];
     if(arrDate.every(a => !a)) arrDate = [];
@@ -47,8 +54,9 @@ modalNoteButton.addEventListener('click', () => {
     let date = arrDate.length ? getDate(arrDate) : [];
 //alert(date);
     category = +category;
+    archived = !!(+archived);
     if(modalNoteButton.getAttribute('edit')) {
-        setDatabaseItem({name, category, content:description, date}, databaseRowId, true); // data, id, edit = true
+        setDatabaseItem({name, category, content:description, date, archived}, databaseRowId, true); // data, id, edit = true
         rowDataUpdate(tableId, getDatabase(databaseRowId));
         shortTextRow(tableId);
     }else {

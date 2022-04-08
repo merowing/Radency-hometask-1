@@ -21,7 +21,10 @@
             </div>
             <div class="mainContent"></div>
         </div>
-        <div class="addNote"><button class="createNote">Create Note</button></div>
+        <div class="addNote">
+            <button class="showArchivedNotes">Show archived notes</button>
+            <button class="createNote">Create Note</button>
+        </div>
         
         <div class="archiveContent">
             <div class="headArchive">
@@ -57,6 +60,12 @@
             <div>
                 <label for="noteDescription">Description</label>
                 <textarea id="noteDescription" name="description"></textarea>
+            </div>
+            <div class="checkboxArchived">
+                <label>    
+                    <input type="checkbox" name="archived" value="0" />
+                    Archived
+                </label>
             </div>
             <div id="noteButton">
                 <button>Add Note</button>

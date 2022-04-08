@@ -24,7 +24,7 @@ let db = [
         category: 2,
         content: 'Content test 3',
         date: ['6/5/2022'],
-        archived: true,
+        archived: false,
     },
     {
         id: 3,
@@ -51,7 +51,7 @@ let db = [
         category: 1,
         content: 'Content test 3',
         date: [],
-        archived: false,
+        archived: true,
     },
     {
         id: 6,
@@ -67,10 +67,12 @@ let db = [
 function getDatabase(id = null) {
     if(id === -1) return db[db.length-1];
     if(id === null) return db;
-    return db[getIndex(id)];
+    //return db[getIndex(id)];
+    return db[id];
 }
-function setDatabaseItem({name, created, category, content, date}, id = null, edit = false) {
-    id = getIndex(id);
+function setDatabaseItem({name, created, category, content, date, archived}, id = null, edit = false) {
+    //id = getIndex(id);
+    alert(archived);
     if(edit) {
         db[id] = {
             ...db[id],
@@ -78,6 +80,7 @@ function setDatabaseItem({name, created, category, content, date}, id = null, ed
             category: category,
             content: content,
             date: date,
+            archived: archived,
         }
     }else {
         db.push({
@@ -92,23 +95,41 @@ function setDatabaseItem({name, created, category, content, date}, id = null, ed
     }
 }
 function removeDatabaseItem(id) {
-    db.splice(getIndex(id), 1);
+    console.log(db);
+    db.splice(id, 1);
+    console.log(db);
 }
 
 function setArchiveItem(id) {
-    db[getIndex(id)].archived = true;
+    db[id].archived = !db[id].archived;
+}
+function checkArchiveItem(id) {
+    return db[id].archived;
 }
 
-function getIndex(id) {
-    let index = 0;
+function getDatabaseArchive() {
+    let archive = [];
     for(let i = 0; i < db.length; i++) {
-        if(db[i].id === id) {
-            index = i;
-            break;
+        if(db[i].archived) {
+            archive.push({
+                data: db[i],
+                position: i,
+            });
         }
     }
-    return index;
+    return archive;
 }
 
+// function getIndex(id) {
+//     let index = 0;
+//     for(let i = 0; i < db.length; i++) {
+//         if(db[i].id === id) {
+//             index = i;
+//             break;
+//         }
+//     }
+//     return index;
+// }
 
-export { getDatabase, setDatabaseItem, setArchiveItem, removeDatabaseItem };
+
+export { getDatabase, setDatabaseItem, setArchiveItem, checkArchiveItem, removeDatabaseItem, getDatabaseArchive };
