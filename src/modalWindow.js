@@ -50,9 +50,9 @@ modalNoteButton.addEventListener('click', () => {
 
     let arrDate = [dateFrom, dateTo];
     if(arrDate.every(a => !a)) arrDate = [];
-    //arrDate = arrDate.filter(a => a);
+
     let date = arrDate.length ? getDate(arrDate) : [];
-//alert(date);
+
     category = +category;
     archived = !!(+archived);
     if(modalNoteButton.getAttribute('edit')) {

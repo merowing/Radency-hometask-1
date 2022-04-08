@@ -67,12 +67,10 @@ let db = [
 function getDatabase(id = null) {
     if(id === -1) return db[db.length-1];
     if(id === null) return db;
-    //return db[getIndex(id)];
-    return db[id];
+    return db[getIndex(id)];
 }
 function setDatabaseItem({name, created, category, content, date, archived}, id = null, edit = false) {
-    //id = getIndex(id);
-    alert(archived);
+    id = getIndex(id);
     if(edit) {
         db[id] = {
             ...db[id],
@@ -95,15 +93,16 @@ function setDatabaseItem({name, created, category, content, date, archived}, id 
     }
 }
 function removeDatabaseItem(id) {
-    console.log(db);
+    id = getIndex(id);
     db.splice(id, 1);
-    console.log(db);
 }
 
 function setArchiveItem(id) {
+    id = getIndex(id);
     db[id].archived = !db[id].archived;
 }
 function checkArchiveItem(id) {
+    id = getIndex(id);
     return db[id].archived;
 }
 
@@ -120,16 +119,16 @@ function getDatabaseArchive() {
     return archive;
 }
 
-// function getIndex(id) {
-//     let index = 0;
-//     for(let i = 0; i < db.length; i++) {
-//         if(db[i].id === id) {
-//             index = i;
-//             break;
-//         }
-//     }
-//     return index;
-// }
+function getIndex(id) {
+    let index = 0;
+    for(let i = 0; i < db.length; i++) {
+        if(db[i].id === id) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
 
 
 export { getDatabase, setDatabaseItem, setArchiveItem, checkArchiveItem, removeDatabaseItem, getDatabaseArchive };

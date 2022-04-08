@@ -1,5 +1,5 @@
 import { getDatabase, setArchiveItem, checkArchiveItem, removeDatabaseItem, getDatabaseArchive } from './lib/database.js';
-import { addNewRow, removeRow, createTable } from './lib/createTable.js';
+import { addNewRow, createTable } from './lib/createTable.js';
 import createArchive from './lib/createArchive.js';
 import getDate from './lib/getDate.js';
 
@@ -9,7 +9,7 @@ import  { getTableElems, removeTableElement } from './lib/tableElems.js';
 import shortTextRow from './lib/shortTextRow.js';
 
 let mainBlock = document.querySelector('.mainContent');
-let showArchive = document.querySelector('.showArchivedNotes');
+let showArchiveNotesButton = document.querySelector('.showArchivedNotes');
 
 // fill content
 createTable(getDatabase());
@@ -38,8 +38,11 @@ function tagMainContent(elem) {
     }
 }
 
+let noteArchive = document.querySelector('.checkboxArchived');
 function clearModalWindow() {
     modalNoteButton.removeAttribute("edit");
+    noteArchive.classList.remove('show');
+    noteArchive.querySelector('input').value = "0";
 
     let elems = modalWindow.querySelectorAll('div > [name]');
     for(let i = 0; i < elems.length; i++) {
@@ -85,8 +88,6 @@ mainBlock.addEventListener('click', e => {
         let noteDateFrom = document.querySelector('#noteDateFrom');
         let noteDateTo = document.querySelector('#noteDateTo');
         
-        let noteArchive = document.querySelector('.checkboxArchived');
-        noteArchive.querySelector('input').value = "0";
         noteArchive.classList.remove('show');
         if(archived) {
             noteArchive.classList.add('show');
@@ -102,7 +103,6 @@ mainBlock.addEventListener('click', e => {
         noteDateTo.value = '';
         if(date.length > 0) {
             let dateArr = getDate(date);
-            //alert(dateArr);
             noteDateFrom.value = dateArr[0];
             noteDateTo.value = dateArr[1];
         }
@@ -113,7 +113,7 @@ mainBlock.addEventListener('click', e => {
         if(checkArchiveItem(databaseRowId)) {
             elem.classList.remove('archived');
         }else {
-            if(!showArchive.classList.contains('arc')) {
+            if(!showArchiveNotesButton.classList.contains('arc')) {
                 elem.parentElement.removeChild(elem);
                 removeTableElement(id);
             }else {
@@ -122,7 +122,6 @@ mainBlock.addEventListener('click', e => {
         }
         setArchiveItem(databaseRowId);
         createArchive();
-
 
     }
 
@@ -136,32 +135,26 @@ mainBlock.addEventListener('click', e => {
 
 });
 
-//let showArchive = document.querySelector('.showArchivedNotes');
-showArchive.addEventListener('click', function() {
+showArchiveNotesButton.addEventListener('click', function() {
     let archiveDb = getDatabaseArchive();
     
-    //console.log(getDatabaseArchive());
-    //mainBlock.innerHTML = '';
     if(!this.classList.contains('arc')) {
 
         for(let a = 0; a < archiveDb.length; a++) {
             let {data, position: pos} = archiveDb[a];
             addNewRow(data, pos);
+            shortTextRow(pos);
         }
 
-        //mainBlock.innerHTML = '';
-        //createTable(getDatabase(), true); // data, true equel archive
         this.innerText = 'Hide archived notes';
         this.classList.add('arc');
     }else {
-        let n = 0;
+        let elems = mainBlock.querySelectorAll(':scope > div');
         for(let a = 0; a < archiveDb.length; a++) {
             let {position: pos} = archiveDb[a];
-            removeRow(pos-n);
-            n++;
+            elems[pos].parentElement.removeChild(elems[pos]);
         }
 
-        //createTable(getDatabase());
         this.innerText = 'Show archived notes';
         this.classList.remove('arc');
     }

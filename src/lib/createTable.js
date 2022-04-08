@@ -34,7 +34,7 @@ function addNewRow(data, index = null) {
     
     let elemDiv = document.createElement('div');
     elemDiv.setAttribute('id', data.id);
-    if(index && data.archived) {
+    if(index !== null && data.archived) {
         elemDiv.setAttribute('class', 'archived');
     }
     elemDiv.innerHTML = htmlCode(data);
@@ -47,10 +47,10 @@ function addNewRow(data, index = null) {
     }
 }
 
-function removeRow(pos) {
-    let elems = document.querySelector('.mainContent').querySelectorAll(':scope > div');
-    elems[pos].parentElement.removeChild(elems[pos]);
-}
+// function hideRow(pos) {
+//     let elems = document.querySelector('.mainContent').querySelectorAll(':scope > div');
+//     elems[pos].parentElement.removeChild(elems[pos]);
+// }
 
 function createTable(data) {
     let mainBlock = document.querySelector('.mainContent');
@@ -75,4 +75,4 @@ function createTable(data) {
     mainBlock.appendChild(fragment);
 }
 
-export { addNewRow, removeRow, createTable };
+export { addNewRow, createTable };
