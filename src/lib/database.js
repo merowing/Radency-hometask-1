@@ -107,27 +107,19 @@ function checkArchiveItem(id) {
 }
 
 function getDatabaseArchive() {
-    let archive = [];
-    for(let i = 0; i < db.length; i++) {
-        if(db[i].archived) {
-            archive.push({
-                data: db[i],
-                position: i,
+    return db.reduce((prev, current, ind) => {
+        if(current.archived) {
+            prev.push({
+                data: current,
+                position: ind,
             });
         }
-    }
-    return archive;
+        return prev;
+    }, []);
 }
 
 function getIndex(id) {
-    let index = 0;
-    for(let i = 0; i < db.length; i++) {
-        if(db[i].id === id) {
-            index = i;
-            break;
-        }
-    }
-    return index;
+    return db.findIndex(item => item.id === id);
 }
 
 

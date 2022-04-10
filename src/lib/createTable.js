@@ -1,11 +1,10 @@
 import getCategory from "./getCategory.js";
-import dateToString from "./dateToString.js";
 
 function htmlCode({ name, created, category, content, date}) {
     let categoryParams = getCategory(category);
     let categoryStyleStr = `background-color: ${categoryParams.color}`;
 
-    date = dateToString(date);
+    date = date.join(', ');
     return `
             <ul>
                 <li>
@@ -47,28 +46,40 @@ function addNewRow(data, index = null) {
     }
 }
 
-// function hideRow(pos) {
-//     let elems = document.querySelector('.mainContent').querySelectorAll(':scope > div');
-//     elems[pos].parentElement.removeChild(elems[pos]);
-// }
-
 function createTable(data) {
     let mainBlock = document.querySelector('.mainContent');
 
     mainBlock.innerHTML = '';
     
-    let fragment = document.createDocumentFragment();
+    //let fragment = document.createDocumentFragment();
     
-    for(let i = 0; i < data.length; i++) {
-        if(data[i].archived) continue;
-    
-        let elemDiv = document.createElement('div');
-        elemDiv.setAttribute('id', data[i].id);
-        elemDiv.innerHTML = htmlCode(data[i]);
-        fragment.appendChild(elemDiv);
-    }
+    let empties = 0;
+    let fragment = data.reduce((prev, current) => {
+        if(current.archived) {
+            empties++;
+            return prev;
+        }
 
-    if(data.length === 0) {
+        let elemDiv = document.createElement('div');
+        elemDiv.setAttribute('id', current.id);
+        elemDiv.innerHTML = htmlCode(current);
+        prev.appendChild(elemDiv);
+
+        return prev;
+    }, document.createDocumentFragment());
+    // for(let i = 0; i < data.length; i++) {
+    //     if(data[i].archived) {
+    //         empties++;
+    //         continue;
+    //     }
+    
+    //     let elemDiv = document.createElement('div');
+    //     elemDiv.setAttribute('id', data[i].id);
+    //     elemDiv.innerHTML = htmlCode(data[i]);
+    //     fragment.appendChild(elemDiv);
+    // }
+
+    if(data.length === empties) {
         emptyTableMessage();
     }
 

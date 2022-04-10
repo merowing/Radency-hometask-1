@@ -9,13 +9,14 @@ import shortTextRow from './lib/shortTextRow.js';
 import createArchive from './lib/createArchive.js';
 
 let categories = getCategory();
-let categoryFragment = document.createDocumentFragment();
-for(let i = 0; i < categories.length; i++) {
+let categoryFragment = categories.reduce((prev, current, ind) => {
     let elemOption = document.createElement('option');
-    elemOption.value = i;
-    elemOption.innerText = categories[i];
-    categoryFragment.appendChild(elemOption);
-}
+    elemOption.value = ind;
+    elemOption.innerText = current;
+    prev.appendChild(elemOption);
+
+    return prev;
+}, document.createDocumentFragment());
 document.querySelector('#noteCategory').appendChild(categoryFragment);
 
 let closeNote = document.querySelector('button.noteClose');
@@ -46,12 +47,9 @@ modalNoteButton.addEventListener('click', () => {
     let {databaseRowId, tableId} = getIds();
 
     let elems = modalWindow.querySelectorAll('div [name]');
-    let [name, category, dateFrom, dateTo, description, archived] = [...elems].map(el => el.value);
+    let [name, category, description, archived] = [...elems].map(el => el.value);
 
-    let arrDate = [dateFrom, dateTo];
-    if(arrDate.every(a => !a)) arrDate = [];
-
-    let date = arrDate.length ? getDate(arrDate) : [];
+    let date = description.match(/(\d{1,2}\/\d{1,2}\/\d{4})/g) || [];
 
     category = +category;
     archived = !!(+archived);

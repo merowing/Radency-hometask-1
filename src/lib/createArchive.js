@@ -20,7 +20,7 @@ function archiveHtmlCode([category, active, archived]) {
 export default function() {
     let archiveBlock = document.querySelector('.mainArchive');
     let archiveButton = document.querySelector('.showArchivedNotes');
-    //archiveButton.classList.remove('arc');
+    
     archiveButton.classList.remove('show');
     archiveButton.innerText = 'Show archived notes';
 
@@ -31,7 +31,6 @@ export default function() {
     
     if(haveArchives) {
         archiveButton.classList.add('show');
-        //archiveButton.classList.add('arc');
         if(archiveButton.classList.contains('arc')) archiveButton.innerText = 'Hide archived notes';
     }else {
         archiveButton.classList.remove('arc');

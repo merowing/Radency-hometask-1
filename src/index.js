@@ -1,8 +1,6 @@
 import { getDatabase, setArchiveItem, checkArchiveItem, removeDatabaseItem, getDatabaseArchive } from './lib/database.js';
 import { addNewRow, createTable } from './lib/createTable.js';
 import createArchive from './lib/createArchive.js';
-import getDate from './lib/getDate.js';
-
 import { modalWindow, bg, modalNoteButton } from './modalWindow.js';
 import { getIds, setIds } from './lib/rowId.js';
 import  { getTableElems, removeTableElement } from './lib/tableElems.js';
@@ -16,9 +14,8 @@ createTable(getDatabase());
 createArchive();
 
 let mainContentElems = getTableElems();
-for(let n = 0; n < mainContentElems.length; n++) {
-    shortTextRow(n);
-}
+
+shortTextRow();
 
 // addNote block
 let createNote = document.querySelector('button.createNote');
@@ -45,19 +42,20 @@ function clearModalWindow() {
     noteArchive.querySelector('input').value = "0";
 
     let elems = modalWindow.querySelectorAll('div > [name]');
-    for(let i = 0; i < elems.length; i++) {
-        switch(elems[i].tagName) {
+    
+    [...elems].map(elem => {
+        switch(elem.tagName) {
             case 'TEXTAREA':
-                elems[i].innerText = '';
-                elems[i].value = '';
+                elem.innerText = '';
+                elem.value = '';
                 break;
             case 'SELECT':
-                elems[i].selectedIndex = 0;
+                elem.selectedIndex = 0;
                 break;
             default:
-                elems[i].value = '';
+                elem.value = '';
         }
-    }
+    });
 }
 
 mainBlock.addEventListener('click', e => {
@@ -80,14 +78,12 @@ mainBlock.addEventListener('click', e => {
         bg.classList.remove('hidden');
         modalNoteButton.innerText = 'Edit Note';
 
-        let {name, category, content, date, archived} = getDatabase(databaseRowId);
+        let {name, category, content, archived} = getDatabase(databaseRowId);
 
         let noteName = document.querySelector('#noteName');
         let noteCategory = document.querySelector('#noteCategory');
         let noteDescription = document.querySelector('#noteDescription');
-        let noteDateFrom = document.querySelector('#noteDateFrom');
-        let noteDateTo = document.querySelector('#noteDateTo');
-        
+
         noteArchive.classList.remove('show');
         if(archived) {
             noteArchive.classList.add('show');
@@ -98,14 +94,6 @@ mainBlock.addEventListener('click', e => {
         noteCategory.selectedIndex = category;
         noteDescription.value = content;
         noteArchive.querySelector('input').checked = archived;
-
-        noteDateFrom.value = '';
-        noteDateTo.value = '';
-        if(date.length > 0) {
-            let dateArr = getDate(date);
-            noteDateFrom.value = dateArr[0];
-            noteDateTo.value = dateArr[1];
-        }
     }
 
     // archive
@@ -140,20 +128,21 @@ showArchiveNotesButton.addEventListener('click', function() {
     
     if(!this.classList.contains('arc')) {
 
-        for(let a = 0; a < archiveDb.length; a++) {
-            let {data, position: pos} = archiveDb[a];
-            addNewRow(data, pos);
-            shortTextRow(pos);
-        }
+        archiveDb.map(item => {
+            let {data, position} = item;
+            addNewRow(data, position);
+            shortTextRow(position);
+        });
 
         this.innerText = 'Hide archived notes';
         this.classList.add('arc');
     }else {
         let elems = mainBlock.querySelectorAll(':scope > div');
-        for(let a = 0; a < archiveDb.length; a++) {
-            let {position: pos} = archiveDb[a];
+        
+        archiveDb.map(item => {
+            let {position: pos} = item;
             elems[pos].parentElement.removeChild(elems[pos]);
-        }
+        })
 
         this.innerText = 'Show archived notes';
         this.classList.remove('arc');
