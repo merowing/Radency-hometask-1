@@ -43,7 +43,7 @@ checkboxArchived.addEventListener('click', function() {
     return false;
 });
 
-modalNoteButton.addEventListener('click', () => {
+modalNoteButton.addEventListener('click', (e) => {
     let {databaseRowId, tableId} = getIds();
 
     let elems = modalWindow.querySelectorAll('div [name]');
@@ -53,6 +53,12 @@ modalNoteButton.addEventListener('click', () => {
 
     category = +category;
     archived = !!(+archived);
+
+    if(!name) {
+        alert('Please, fill the name of note!');
+        return null;
+    }
+
     if(modalNoteButton.getAttribute('edit')) {
         setDatabaseItem({name, category, content:description, archived}, databaseRowId, true); // data, id, edit = true
         rowDataUpdate(tableId, date, getDatabase(databaseRowId));
