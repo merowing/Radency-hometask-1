@@ -53,8 +53,6 @@ function createTable(data) {
 
     mainBlock.innerHTML = '';
     
-    //let fragment = document.createDocumentFragment();
-    
     let empties = 0;
     let fragment = data.reduce((prev, current) => {
         if(current.archived) {
@@ -65,23 +63,11 @@ function createTable(data) {
         let elemDiv = document.createElement('div');
         elemDiv.setAttribute('id', current.id);
         current['date'] = getDateFromContent(current.content);
-        //console.log(current.date);
         elemDiv.innerHTML = htmlCode(current);
         prev.appendChild(elemDiv);
 
         return prev;
     }, document.createDocumentFragment());
-    // for(let i = 0; i < data.length; i++) {
-    //     if(data[i].archived) {
-    //         empties++;
-    //         continue;
-    //     }
-    
-    //     let elemDiv = document.createElement('div');
-    //     elemDiv.setAttribute('id', data[i].id);
-    //     elemDiv.innerHTML = htmlCode(data[i]);
-    //     fragment.appendChild(elemDiv);
-    // }
 
     if(data.length === empties) {
         emptyTableMessage();

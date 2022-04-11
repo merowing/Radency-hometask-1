@@ -1,4 +1,3 @@
-import { getDatabaseArchive } from './database.js';
 import emptyTableMessage from './emptyTableMessage.js';
 
 let mainContentElems = [];

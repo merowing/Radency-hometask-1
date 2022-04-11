@@ -47,12 +47,6 @@ export default function() {
         prev.appendChild(divArchive);
         return prev;
     }, document.createDocumentFragment());
-    // let fragmentArchive = document.createDocumentFragment();
-    // for(let i = 0; i < 3; i++) {
-    //     if(!statistics[i]) continue;
-    //     let divArchive = document.createElement('div');
-    //     divArchive.innerHTML = archiveHtmlCode(statistics[i]);
-    //     fragmentArchive.appendChild(divArchive);
-    // }
+    
     archiveBlock.appendChild(fragmentArchive);
 }

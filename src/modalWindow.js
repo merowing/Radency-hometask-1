@@ -1,6 +1,6 @@
 import getCategory from './lib/getCategory.js';
 import { getIds } from './lib/rowId.js';
-import { getDateNow } from './lib/getDate.js';
+import { getDateFromContent, getDateNow } from './lib/getDate.js';
 import { getDatabase, setDatabaseItem } from './lib/database.js';
 import { addNewRow } from './lib/createTable.js';
 import { addNewTableElement } from './lib/tableElems.js'
@@ -49,7 +49,7 @@ modalNoteButton.addEventListener('click', () => {
     let elems = modalWindow.querySelectorAll('div [name]');
     let [name, category, description, archived] = [...elems].map(el => el.value);
 
-    let date = description.match(/(\d{1,2}\/\d{1,2}\/\d{4})/g) || [];
+    let date = getDateFromContent(description);
 
     category = +category;
     archived = !!(+archived);

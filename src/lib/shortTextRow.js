@@ -9,36 +9,14 @@ export default function(index = 0) {
     
     let contentItems = mainContentElems[index].querySelectorAll('span');
     let letterLen = maxLettersInColumn(ids.map(el => [contentItems[el], el]));
-alert(index);
-//alert(letterLen);
-console.log(letterLen);
+
     letterLen.map(arr => {
         let [len, ind] = arr;
 
         let item = contentItems[ind];
-        //if(len) {
-            let itemText = item.innerText;
-            itemText = itemText.substr(0, len - 4) + '...';
-            item.innerText = itemText;
-            //alert(len, ind);
-            // let str = '';
-            // for(let j = 0; j < letterLen[i] - 4; j++) {
-            //     str += itemText[j];
-            // }
-            //item.innerText = str + '...';
-        //}
+        let itemText = item.innerText;
+        itemText = itemText.substr(0, len - 4) + '...';
+        item.innerText = itemText;
     });
 
-    // for(let i = 0; i < letterLen.length; i++) {
-        
-    //     let item = contentItems[ids[i]];
-    //     if(letterLen[i]) {
-    //         let itemText = item.innerText;
-    //         let str = '';
-    //         for(let j = 0; j < letterLen[i] - 4; j++) {
-    //             str += itemText[j];
-    //         }
-    //         item.innerText = str + '...';
-    //     }
-    // }
 }
