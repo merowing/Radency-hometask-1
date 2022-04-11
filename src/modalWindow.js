@@ -1,6 +1,6 @@
 import getCategory from './lib/getCategory.js';
 import { getIds } from './lib/rowId.js';
-import getDate from './lib/getDate.js';
+import { getDateFromContent, getDateNow } from './lib/getDate.js';
 import { getDatabase, setDatabaseItem } from './lib/database.js';
 import { addNewRow } from './lib/createTable.js';
 import { addNewTableElement } from './lib/tableElems.js'
@@ -9,13 +9,14 @@ import shortTextRow from './lib/shortTextRow.js';
 import createArchive from './lib/createArchive.js';
 
 let categories = getCategory();
-let categoryFragment = document.createDocumentFragment();
-for(let i = 0; i < categories.length; i++) {
+let categoryFragment = categories.reduce((prev, current, ind) => {
     let elemOption = document.createElement('option');
-    elemOption.value = i;
-    elemOption.innerText = categories[i];
-    categoryFragment.appendChild(elemOption);
-}
+    elemOption.value = ind;
+    elemOption.innerText = current;
+    prev.appendChild(elemOption);
+
+    return prev;
+}, document.createDocumentFragment());
 document.querySelector('#noteCategory').appendChild(categoryFragment);
 
 let closeNote = document.querySelector('button.noteClose');
@@ -46,22 +47,19 @@ modalNoteButton.addEventListener('click', () => {
     let {databaseRowId, tableId} = getIds();
 
     let elems = modalWindow.querySelectorAll('div [name]');
-    let [name, category, dateFrom, dateTo, description, archived] = [...elems].map(el => el.value);
+    let [name, category, description, archived] = [...elems].map(el => el.value);
 
-    let arrDate = [dateFrom, dateTo];
-    if(arrDate.every(a => !a)) arrDate = [];
-
-    let date = arrDate.length ? getDate(arrDate) : [];
+    let date = getDateFromContent(description);
 
     category = +category;
     archived = !!(+archived);
     if(modalNoteButton.getAttribute('edit')) {
-        setDatabaseItem({name, category, content:description, date, archived}, databaseRowId, true); // data, id, edit = true
-        rowDataUpdate(tableId, getDatabase(databaseRowId));
+        setDatabaseItem({name, category, content:description, archived}, databaseRowId, true); // data, id, edit = true
+        rowDataUpdate(tableId, date, getDatabase(databaseRowId));
         shortTextRow(tableId);
     }else {
-        let created = getDate();
-        setDatabaseItem({name, created, category, content:description, date});
+        let created = getDateNow();
+        setDatabaseItem({name, created, category, content:description});
         
         addNewTableElement();
         addNewRow(getDatabase(-1));

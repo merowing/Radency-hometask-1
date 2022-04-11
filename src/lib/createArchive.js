@@ -20,7 +20,7 @@ function archiveHtmlCode([category, active, archived]) {
 export default function() {
     let archiveBlock = document.querySelector('.mainArchive');
     let archiveButton = document.querySelector('.showArchivedNotes');
-    //archiveButton.classList.remove('arc');
+    
     archiveButton.classList.remove('show');
     archiveButton.innerText = 'Show archived notes';
 
@@ -31,18 +31,22 @@ export default function() {
     
     if(haveArchives) {
         archiveButton.classList.add('show');
-        //archiveButton.classList.add('arc');
         if(archiveButton.classList.contains('arc')) archiveButton.innerText = 'Hide archived notes';
     }else {
         archiveButton.classList.remove('arc');
     }
 
-    let fragmentArchive = document.createDocumentFragment();
-    for(let i = 0; i < 3; i++) {
-        if(!statistics[i]) continue;
+    let categoriesInArchive = getCategory().length;
+    let fragmentArchive = Array(categoriesInArchive).fill().reduce((prev, current, ind) => {
+        if(!statistics[ind]) {
+            return prev;
+        }
+
         let divArchive = document.createElement('div');
-        divArchive.innerHTML = archiveHtmlCode(statistics[i]);
-        fragmentArchive.appendChild(divArchive);
-    }
+        divArchive.innerHTML = archiveHtmlCode(statistics[ind]);
+        prev.appendChild(divArchive);
+        return prev;
+    }, document.createDocumentFragment());
+    
     archiveBlock.appendChild(fragmentArchive);
 }

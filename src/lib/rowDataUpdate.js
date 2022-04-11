@@ -1,13 +1,11 @@
 import getCategory from "./getCategory.js";
-import dateToString from './dateToString.js';
-import shortTextRow from "./shortTextRow.js";
 
-export default function(id, {name, category, date, content, archived}) {
+export default function(id, date, {name, category, content, archived}) {
     
     let main = document.querySelectorAll('.mainContent > div')[id];
     let elems = main.querySelectorAll('li');
     if(main.classList.contains('archived') && !archived) main.classList.remove('archived');
-    let dateString = dateToString(date);
+    let dateString = date.join(', ');
     let categoryParams = getCategory(category);
 
     elems[0].querySelector('div').innerText = categoryParams.name[0];
@@ -17,5 +15,4 @@ export default function(id, {name, category, date, content, archived}) {
     elems[4].querySelector('span').innerText = content;
     elems[5].querySelector('span').innerText = dateString;
 
-    shortTextRow(id);
 }

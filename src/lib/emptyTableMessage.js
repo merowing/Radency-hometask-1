@@ -1,6 +1,10 @@
 export default function() {
     let elemDiv = document.createElement('div');
+    let main = document.querySelector('.mainContent');
+    
     elemDiv.innerText = 'List of notes is empty';
-    document.querySelector('.mainContent').appendChild(elemDiv);
-    document.querySelector('.mainContent').style.textAlign = 'center';
+    elemDiv.setAttribute('class', 'empty');
+    
+    main.appendChild(elemDiv);
+    main.style.textAlign = 'center';
 }
