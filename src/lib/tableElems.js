@@ -1,9 +1,10 @@
+import { getDatabaseArchive } from './database.js';
 import emptyTableMessage from './emptyTableMessage.js';
 
 let mainContentElems = [];
 let main = document.querySelector('.mainContent');
 
-let getMainContent = () => main.querySelectorAll(':scope > div');
+let getMainContent = () => main.querySelectorAll(':scope > div:not(.empty)');
 
 function addNewTableElement() {
     if(mainContentElems.length === 0) {

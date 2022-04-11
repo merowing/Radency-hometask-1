@@ -5,6 +5,7 @@ import { modalWindow, bg, modalNoteButton } from './modalWindow.js';
 import { getIds, setIds } from './lib/rowId.js';
 import  { getTableElems, removeTableElement } from './lib/tableElems.js';
 import shortTextRow from './lib/shortTextRow.js';
+import emptyTableMessage from './lib/emptyTableMessage.js';
 
 let mainBlock = document.querySelector('.mainContent');
 let showArchiveNotesButton = document.querySelector('.showArchivedNotes');
@@ -129,7 +130,7 @@ showArchiveNotesButton.addEventListener('click', function() {
     let archiveDb = getDatabaseArchive();
     
     if(!this.classList.contains('arc')) {
-
+        if(getTableElems().length === 0) mainBlock.innerHTML = '';
         archiveDb.map(item => {
             let {data, position} = item;
             addNewRow(data, position);
@@ -144,7 +145,11 @@ showArchiveNotesButton.addEventListener('click', function() {
         archiveDb.map(item => {
             let {position: pos} = item;
             elems[pos].parentElement.removeChild(elems[pos]);
-        })
+        });
+
+        if(getTableElems().length === 0) {
+            emptyTableMessage();
+        }
 
         this.innerText = 'Show archived notes';
         this.classList.remove('arc');

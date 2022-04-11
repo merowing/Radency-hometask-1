@@ -73,8 +73,10 @@ function setDatabaseItem({name, created, category, content, archived}, id = null
             archived: archived,
         }
     }else {
+        let dbLen = db.length;
+        let lastIndex = dbLen ? db[dbLen-1].id + 1 : dbLen;
         db.push({
-            id: db[db.length-1].id + 1,
+            id: lastIndex,
             name,
             created,
             category,
