@@ -1,5 +1,6 @@
 import getCategory from "./getCategory.js";
 import { getDateFromContent } from "./getDate.js";
+import emptyTableMessage from "./emptyTableMessage.js";
 
 function htmlCode({ name, created, category, date, content}) {
     let categoryParams = getCategory(category);
@@ -30,50 +31,63 @@ function htmlCode({ name, created, category, date, content}) {
 }
 
 function addNewRow(data, index = null) {
-    let main = document.querySelector('.mainContent');
-    
-    let elemDiv = document.createElement('div');
-    elemDiv.setAttribute('id', data.id);
-    if(index !== null && data.archived) {
-        elemDiv.setAttribute('class', 'archived');
-    }
-    data['date'] = getDateFromContent(data.content);
-    elemDiv.innerHTML = htmlCode(data);
+    try {
+        if(typeof data !== 'object') throw('Data must be an object!');
+        if(Object.keys(data).length === 0) throw('Data can\'t be an empty!');
 
-    if(index === null) {
-        main.appendChild(elemDiv);
-    }else {
-        let elemBefore = main.querySelectorAll(':scope > div')[index];
-        main.insertBefore(elemDiv, elemBefore);
+        let main = document.querySelector('.mainContent');
+        
+        let elemDiv = document.createElement('div');
+        elemDiv.setAttribute('id', data.id);
+        if(index !== null && data.archived) {
+            elemDiv.setAttribute('class', 'archived');
+        }
+        data['date'] = getDateFromContent(data.content);
+        elemDiv.innerHTML = htmlCode(data);
+
+        if(index === null) {
+            main.appendChild(elemDiv);
+        }else {
+            let elemBefore = main.querySelectorAll(':scope > div')[index];
+            main.insertBefore(elemDiv, elemBefore);
+        }
+    }catch(error) {
+        alert(error);
     }
 }
 
 function createTable(data) {
-    let mainBlock = document.querySelector('.mainContent');
+    try {
+        if(!Array.isArray(data)) throw('Data must be an array not a ' + typeof data);
 
-    mainBlock.innerHTML = '';
-    
-    let empties = 0;
-    let fragment = data.reduce((prev, current) => {
-        if(current.archived) {
-            empties++;
+        let mainBlock = document.querySelector('.mainContent');
+
+        mainBlock.innerHTML = '';
+        
+        let empties = 0;
+        let fragment = data.reduce((prev, current) => {
+            if(current.archived) {
+                empties++;
+                return prev;
+            }
+
+            let elemDiv = document.createElement('div');
+            elemDiv.setAttribute('id', current.id);
+            current['date'] = getDateFromContent(current.content);
+            elemDiv.innerHTML = htmlCode(current);
+            prev.appendChild(elemDiv);
+
             return prev;
+        }, document.createDocumentFragment());
+
+        if(data.length === empties) {
+            emptyTableMessage();
         }
 
-        let elemDiv = document.createElement('div');
-        elemDiv.setAttribute('id', current.id);
-        current['date'] = getDateFromContent(current.content);
-        elemDiv.innerHTML = htmlCode(current);
-        prev.appendChild(elemDiv);
-
-        return prev;
-    }, document.createDocumentFragment());
-
-    if(data.length === empties) {
-        emptyTableMessage();
+        mainBlock.appendChild(fragment);
+    }catch(error) {
+        alert(error);
     }
-
-    mainBlock.appendChild(fragment);
 }
 
 export { addNewRow, createTable };

@@ -6,6 +6,7 @@ import { getIds, setIds } from './lib/rowId.js';
 import  { getTableElems, removeTableElement } from './lib/tableElems.js';
 import shortTextRow from './lib/shortTextRow.js';
 import emptyTableMessage from './lib/emptyTableMessage.js';
+import getCategory from './lib/getCategory.js';
 
 let mainBlock = document.querySelector('.mainContent');
 let showArchiveNotesButton = document.querySelector('.showArchivedNotes');
@@ -128,30 +129,38 @@ mainBlock.addEventListener('click', e => {
 
 showArchiveNotesButton.addEventListener('click', function() {
     let archiveDb = getDatabaseArchive();
-    
-    if(!this.classList.contains('arc')) {
-        if(getTableElems().length === 0) mainBlock.innerHTML = '';
-        archiveDb.map(item => {
-            let {data, position} = item;
-            addNewRow(data, position);
-            shortTextRow(position);
-        });
-
-        this.innerText = 'Hide archived notes';
-        this.classList.add('arc');
-    }else {
-        let elems = mainBlock.querySelectorAll(':scope > div');
-        
-        archiveDb.map(item => {
-            let {position: pos} = item;
-            elems[pos].parentElement.removeChild(elems[pos]);
-        });
-
-        if(getTableElems().length === 0) {
-            emptyTableMessage();
+    try {
+        if(!Array.isArray(archiveDb) || !archiveDb.length) throw('Archive database must be an array or empty!');
+        if(!archiveDb.every(item => item.hasOwnProperty('data') && item.hasOwnProperty('position'))) {
+            throw('Some items of array doesn\'t have property data or position');
         }
 
-        this.innerText = 'Show archived notes';
-        this.classList.remove('arc');
+        if(!this.classList.contains('arc')) {
+            if(getTableElems().length === 0) mainBlock.innerHTML = '';
+            archiveDb.map(item => {
+                let {data, position} = item;
+                addNewRow(data, position);
+                shortTextRow(position);
+            });
+
+            this.innerText = 'Hide archived notes';
+            this.classList.add('arc');
+        }else {
+            let elems = mainBlock.querySelectorAll(':scope > div');
+            
+            archiveDb.map(item => {
+                let {position: pos} = item;
+                elems[pos].parentElement.removeChild(elems[pos]);
+            });
+
+            if(getTableElems().length === 0) {
+                emptyTableMessage();
+            }
+
+            this.innerText = 'Show archived notes';
+            this.classList.remove('arc');
+        }
+    }catch(error) {
+        alert(error);
     }
 });

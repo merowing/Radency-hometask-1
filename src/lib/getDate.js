@@ -14,7 +14,13 @@ function getDateNow() {
 }
 
 function getDateFromContent(content) {
-    return content.match(/(\d{1,2}\/\d{1,2}\/\d{4})/g) || [];
+    try {
+        if(typeof content !== 'string') throw('Content should be a string!');
+        
+        return content.match(/(\d{1,2}\/\d{1,2}\/\d{4})/g) || [];
+    }catch(error) {
+        alert(error);
+    }
 }
 
 export { getDateNow, getDateFromContent };

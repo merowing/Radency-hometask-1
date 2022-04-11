@@ -58,9 +58,16 @@ let db = [
 ];
 
 function getDatabase(id = null) {
-    if(id === -1) return db[db.length-1];
-    if(id === null) return db;
-    return db[getIndex(id)];
+    try {
+        if(typeof id !== 'number' && id !== null) throw('Database id should be an integer number!');
+        
+        if(id === -1) return db[db.length-1];
+        if(id === null) return db;
+        return db[getIndex(id)];
+    }catch(error) {
+        alert(error);
+        return db;
+    }
 }
 function setDatabaseItem({name, created, category, content, archived}, id = null, edit = false) {
     id = getIndex(id);
