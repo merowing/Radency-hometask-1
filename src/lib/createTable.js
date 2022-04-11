@@ -1,10 +1,11 @@
 import getCategory from "./getCategory.js";
+import { getDateFromContent } from "./getDate.js";
 
-function htmlCode({ name, created, category, content, date}) {
+function htmlCode({ name, created, category, date, content}) {
     let categoryParams = getCategory(category);
     let categoryStyleStr = `background-color: ${categoryParams.color}`;
 
-    date = date.join(', ');
+    date = (date.length) ? date.join(', ') : '';
     return `
             <ul>
                 <li>
@@ -36,6 +37,7 @@ function addNewRow(data, index = null) {
     if(index !== null && data.archived) {
         elemDiv.setAttribute('class', 'archived');
     }
+    data['date'] = getDateFromContent(data.content);
     elemDiv.innerHTML = htmlCode(data);
 
     if(index === null) {
@@ -62,6 +64,8 @@ function createTable(data) {
 
         let elemDiv = document.createElement('div');
         elemDiv.setAttribute('id', current.id);
+        current['date'] = getDateFromContent(current.content);
+        //console.log(current.date);
         elemDiv.innerHTML = htmlCode(current);
         prev.appendChild(elemDiv);
 

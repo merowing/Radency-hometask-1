@@ -36,12 +36,23 @@ export default function() {
         archiveButton.classList.remove('arc');
     }
 
-    let fragmentArchive = document.createDocumentFragment();
-    for(let i = 0; i < 3; i++) {
-        if(!statistics[i]) continue;
+    let categoriesInArchive = getCategory().length;
+    let fragmentArchive = Array(categoriesInArchive).fill().reduce((prev, current, ind) => {
+        if(!statistics[ind]) {
+            return prev;
+        }
+
         let divArchive = document.createElement('div');
-        divArchive.innerHTML = archiveHtmlCode(statistics[i]);
-        fragmentArchive.appendChild(divArchive);
-    }
+        divArchive.innerHTML = archiveHtmlCode(statistics[ind]);
+        prev.appendChild(divArchive);
+        return prev;
+    }, document.createDocumentFragment());
+    // let fragmentArchive = document.createDocumentFragment();
+    // for(let i = 0; i < 3; i++) {
+    //     if(!statistics[i]) continue;
+    //     let divArchive = document.createElement('div');
+    //     divArchive.innerHTML = archiveHtmlCode(statistics[i]);
+    //     fragmentArchive.appendChild(divArchive);
+    // }
     archiveBlock.appendChild(fragmentArchive);
 }

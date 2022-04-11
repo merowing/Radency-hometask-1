@@ -1,6 +1,6 @@
 import getCategory from "./getCategory.js";
 
-export default function(id, {name, category, date, content, archived}) {
+export default function(id, date, {name, category, content, archived}) {
     
     let main = document.querySelectorAll('.mainContent > div')[id];
     let elems = main.querySelectorAll('li');

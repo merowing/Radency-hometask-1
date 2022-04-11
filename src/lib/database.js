@@ -2,64 +2,57 @@ let db = [
     {
         id: 0,
         name: 'Note 1',
-        created: 'April 04, 2022',
+        created: 'April 11, 2022',
         category: 1,
-        content: 'Content test',
-        date: ['3/5/2022', '5/5/2022'],
+        content: 'Lorem Ipsum is simply dummy text',
         archived: false,
     },
     {
         id: 1,
         name: 'Note 2',
-        created: 'April 05, 2022',
+        created: 'April 11, 2022',
         category: 2,
-        content: 'Content test 2',
-        date: [],
+        content: 'I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021',
         archived: true,
     },
     {
         id: 2,
         name: 'Note 3',
-        created: 'April 05, 2022',
+        created: 'April 11, 2022',
         category: 2,
-        content: 'Content test 3',
-        date: ['6/5/2022'],
+        content: 'I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021',
         archived: false,
     },
     {
         id: 3,
         name: 'Note 4',
-        created: 'April 05, 2022',
+        created: 'April 11, 2022',
         category: 2,
-        content: 'Content test 3',
-        date: ['','6/5/2022'],
+        content: 'Lorem Ipsum is simply dummy text 4',
         archived: false,
     },
     {
         id: 4,
         name: 'Note 5',
-        created: 'April 05, 2022',
+        created: 'April 11, 2022',
         category: 1,
-        content: 'Content test 3',
-        date: [],
+        content: 'Lorem Ipsum is simply dummy text 5',
         archived: false,
     },
     {
         id: 5,
         name: 'Note 6',
-        created: 'April 05, 2022',
+        created: 'April 11, 2022',
         category: 1,
-        content: 'Content test 3',
-        date: [],
+        content: 'Content test 6',
         archived: true,
     },
     {
         id: 6,
         name: 'Note 7',
-        created: 'April 05, 2022',
+        created: 'April 11, 2022',
         category: 1,
-        content: 'Content test 3',
-        date: [],
+        content: 'Content test 7',
         archived: false,
     },
 ];
@@ -69,7 +62,7 @@ function getDatabase(id = null) {
     if(id === null) return db;
     return db[getIndex(id)];
 }
-function setDatabaseItem({name, created, category, content, date, archived}, id = null, edit = false) {
+function setDatabaseItem({name, created, category, content, archived}, id = null, edit = false) {
     id = getIndex(id);
     if(edit) {
         db[id] = {
@@ -77,7 +70,6 @@ function setDatabaseItem({name, created, category, content, date, archived}, id 
             name: name,
             category: category,
             content: content,
-            date: date,
             archived: archived,
         }
     }else {
@@ -87,7 +79,6 @@ function setDatabaseItem({name, created, category, content, date, archived}, id 
             created,
             category,
             content,
-            date,
             archived: false,
         });
     }
@@ -121,6 +112,5 @@ function getDatabaseArchive() {
 function getIndex(id) {
     return db.findIndex(item => item.id === id);
 }
-
 
 export { getDatabase, setDatabaseItem, setArchiveItem, checkArchiveItem, removeDatabaseItem, getDatabaseArchive };

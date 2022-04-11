@@ -10,12 +10,14 @@ let mainBlock = document.querySelector('.mainContent');
 let showArchiveNotesButton = document.querySelector('.showArchivedNotes');
 
 // fill content
-createTable(getDatabase());
+let db = getDatabase();
+createTable(db);
 createArchive();
 
 let mainContentElems = getTableElems();
-
-shortTextRow();
+mainContentElems.forEach((elem, ind) => {
+    shortTextRow(ind);
+});
 
 // addNote block
 let createNote = document.querySelector('button.createNote');

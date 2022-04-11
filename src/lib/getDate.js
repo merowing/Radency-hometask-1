@@ -1,7 +1,7 @@
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
-function getDate() {
+function getDateNow() {
     let date = new Date();
 
     let day = date.getDate();
@@ -13,4 +13,8 @@ function getDate() {
     return `${month} ${day}, ${year}`;
 }
 
-export default getDate;
+function getDateFromContent(content) {
+    return content.match(/(\d{1,2}\/\d{1,2}\/\d{4})/g) || [];
+}
+
+export { getDateNow, getDateFromContent };

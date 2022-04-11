@@ -1,6 +1,6 @@
 import getCategory from './lib/getCategory.js';
 import { getIds } from './lib/rowId.js';
-import getDate from './lib/getDate.js';
+import { getDateNow } from './lib/getDate.js';
 import { getDatabase, setDatabaseItem } from './lib/database.js';
 import { addNewRow } from './lib/createTable.js';
 import { addNewTableElement } from './lib/tableElems.js'
@@ -54,12 +54,12 @@ modalNoteButton.addEventListener('click', () => {
     category = +category;
     archived = !!(+archived);
     if(modalNoteButton.getAttribute('edit')) {
-        setDatabaseItem({name, category, content:description, date, archived}, databaseRowId, true); // data, id, edit = true
-        rowDataUpdate(tableId, getDatabase(databaseRowId));
+        setDatabaseItem({name, category, content:description, archived}, databaseRowId, true); // data, id, edit = true
+        rowDataUpdate(tableId, date, getDatabase(databaseRowId));
         shortTextRow(tableId);
     }else {
-        let created = getDate();
-        setDatabaseItem({name, created, category, content:description, date});
+        let created = getDateNow();
+        setDatabaseItem({name, created, category, content:description});
         
         addNewTableElement();
         addNewRow(getDatabase(-1));
