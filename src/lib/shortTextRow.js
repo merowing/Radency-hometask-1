@@ -10,7 +10,7 @@ export default function(index = 0) {
     let contentItems = mainContentElems[index].querySelectorAll('span');
     let letterLen = maxLettersInColumn(ids.map(el => [contentItems[el], el]));
 
-    letterLen.map(arr => {
+    letterLen.forEach(arr => {
         let [len, ind] = arr;
 
         let item = contentItems[ind];

@@ -1,12 +1,17 @@
-import { getDatabase, setArchiveItem, checkArchiveItem, removeDatabaseItem, getDatabaseArchive } from './lib/database.js';
+import {
+    getDatabase,
+    setArchiveItem,
+    checkArchiveItem,
+    removeDatabaseItem,
+    getDatabaseArchive
+} from './lib/database.js';
 import { addNewRow, createTable } from './lib/createTable.js';
-import createArchive from './lib/createArchive.js';
 import { modalWindow, bg, modalNoteButton } from './modalWindow.js';
 import { getIds, setIds } from './lib/rowId.js';
 import  { getTableElems, removeTableElement } from './lib/tableElems.js';
 import shortTextRow from './lib/shortTextRow.js';
 import emptyTableMessage from './lib/emptyTableMessage.js';
-import getCategory from './lib/getCategory.js';
+import createArchive from './lib/createArchive.js';
 
 let mainBlock = document.querySelector('.mainContent');
 let showArchiveNotesButton = document.querySelector('.showArchivedNotes');
@@ -47,7 +52,7 @@ function clearModalWindow() {
 
     let elems = modalWindow.querySelectorAll('div > [name]');
     
-    [...elems].map(elem => {
+    [...elems].forEach(elem => {
         switch(elem.tagName) {
             case 'TEXTAREA':
                 elem.innerText = '';
@@ -137,7 +142,7 @@ showArchiveNotesButton.addEventListener('click', function() {
 
         if(!this.classList.contains('arc')) {
             if(getTableElems().length === 0) mainBlock.innerHTML = '';
-            archiveDb.map(item => {
+            archiveDb.forEach(item => {
                 let {data, position} = item;
                 addNewRow(data, position);
                 shortTextRow(position);
@@ -148,7 +153,7 @@ showArchiveNotesButton.addEventListener('click', function() {
         }else {
             let elems = mainBlock.querySelectorAll(':scope > div');
             
-            archiveDb.map(item => {
+            archiveDb.forEach(item => {
                 let {position: pos} = item;
                 elems[pos].parentElement.removeChild(elems[pos]);
             });
